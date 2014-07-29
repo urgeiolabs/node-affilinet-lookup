@@ -1,0 +1,25 @@
+{
+  "name": "affilinet-lookup",
+  "version": "0.0.0",
+  "description": "A simple wrapper around the affilinet search products api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adamvr/node-affilinet-lookup.git"
+  },
+  "keywords": [
+    "affilinet",
+    "api",
+    "lookup",
+    "ecommerce"
+  ],
+  "author": "Adam Rudd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adamvr/node-affilinet-lookup/issues"
+  },
+  "homepage": "https://github.com/adamvr/node-affilinet-lookup"
+}
