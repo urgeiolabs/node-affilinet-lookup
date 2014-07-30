@@ -31,12 +31,14 @@ Affilinet.prototype.password = Affilinet.prototype.key = function (password) {
   return this._password = password, this;
 };
 
+// Run query
 Affilinet.prototype.done = function (cb) {
   request
     .get(endpoint)
     .query({publisherId: this._id})
     .query({Password: this._password})
-    .done(function (err, result) {
+    .query({query: this._keywords})
+    .end(function (err, result) {
       if (err) return cb(err);
       return cb(null, result.body);
     });
