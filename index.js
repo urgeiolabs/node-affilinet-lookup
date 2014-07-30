@@ -31,6 +31,17 @@ Affilinet.prototype.password = Affilinet.prototype.key = function (password) {
   return this._password = password, this;
 };
 
+// Price range
+Affilinet.prototype.price = function (price) {
+  price = ('string' === typeof price) ? price.split('..') : price;
+
+  if (price[0]) this._minPrice = price[0];
+  if (price[1]) this._maxPrice = price[1];
+
+  return this;
+};
+
+// Limit to one result
 Affilinet.prototype.one = function (one) {
   one = ('undefined' === typeof one) ? true : !!one;
   return this._one = one, this;
