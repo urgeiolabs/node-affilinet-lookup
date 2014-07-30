@@ -49,7 +49,7 @@ Affilinet.prototype.page = function (page) {
 // Limit to one result
 Affilinet.prototype.one = function (one) {
   one = ('undefined' === typeof one) ? true : !!one;
-  return this._one = one, this._limit = +one, this;
+  return this._one = one, this;
 };
 
 // Limit to <limit> results
@@ -67,7 +67,7 @@ Affilinet.prototype.done = function (cb) {
     .query({query: this._keywords})
     .query({MinimumPrice: this._minPrice})
     .query({MaximumPrice: this._maxPrice})
-    .query({PageSize: this._limit})
+    .query({PageSize: this._one ? 1 : this._limit})
     .end(function (err, result) {
       if (err) return cb(err);
 
