@@ -41,3 +41,18 @@ Affilinet.prototype.done = function (cb) {
       return cb(null, result.body);
     });
 };
+
+// Take care of affilinet byte ordering foolishness
+request.parse['application/json'] = function (res, fn) {
+  res.text = '';
+  res.setEncoding('utf8');
+  res.on('data', function (chunk) { res.text += chunk; });
+  res.on('end', function () {
+    try {
+      res.text = res.text.slice(1);
+      fn(null, JSON.parse(res.text));
+    } catch (err) {
+      fn(err);
+    }
+  });
+};
