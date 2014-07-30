@@ -65,6 +65,8 @@ Affilinet.prototype.done = function (cb) {
     .query({publisherId: this._id})
     .query({Password: this._password})
     .query({query: this._keywords})
+    .query({MinimumPrice: this._minPrice})
+    .query({MaximumPrice: this._maxPrice})
     .query({PageSize: this._limit})
     .end(function (err, result) {
       if (err) return cb(err);
