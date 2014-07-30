@@ -49,11 +49,11 @@ Affilinet.prototype.page = function (page) {
 // Limit to one result
 Affilinet.prototype.one = function (one) {
   one = ('undefined' === typeof one) ? true : !!one;
-  return this._one = one, this;
+  return this._one = one, this._limit = +one, this;
 };
 
+// Limit to <limit> results
 Affilinet.prototype.limit = function (limit) {
-  // Disregard falsy limits, they don't make any sense
   if (!limit) return this;
   return this._limit = limit, this;
 };
@@ -65,6 +65,7 @@ Affilinet.prototype.done = function (cb) {
     .query({publisherId: this._id})
     .query({Password: this._password})
     .query({query: this._keywords})
+    .query({PageSize: this._limit})
     .end(function (err, result) {
       if (err) return cb(err);
 
@@ -84,11 +85,6 @@ Affilinet.prototype.done = function (cb) {
       // One
       if (this._one) {
         formatted = _.first(formatted) || null;
-      }
-
-      // Limit
-      if (this._limit) {
-        formatted = _.first(formatted, this._limit);
       }
 
       return cb(null, formatted);
