@@ -51,11 +51,22 @@ Affilinet.prototype.done = function (cb) {
 
       // Check for errors
       var err = body.ErrorMessages;
-
       if (err && err.length > 0) return cb(new Error(err[0].Value));
 
       return cb(null, body);
     });
+};
+
+var format = function (products) {
+  return _.map(products, function (p) {
+    return {
+      id: p.ProductId,
+      name: p.ProductName,
+      currency: p.PriceInformation.Currency,
+      listPrice: p.PriceInformation.PriceDetails.Price,
+      url: p.Deeplink1
+    };
+  });
 };
 
 // Take care of affilinet byte ordering foolishness
