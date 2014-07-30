@@ -39,6 +39,14 @@ var opts = nomnom
     help: 'Choose results page',
     default: 1
   })
+  .option('shops', {
+    abbr: 's',
+    help: 'Shop ids',
+    type: 'string',
+    transform: function (s) {
+      return s.split(',');
+    }
+  })
   .parse();
 
 affilinet({keywords: opts.keywords})
@@ -47,6 +55,7 @@ affilinet({keywords: opts.keywords})
   .one(opts.one)
   .limit(opts.limit)
   .page(opts.page)
+  .shop(opts.shops)
   .done(function (err, res) {
     if (err) throw err;
     console.log(JSON.stringify(res));
