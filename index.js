@@ -40,7 +40,16 @@ Affilinet.prototype.done = function (cb) {
     .query({query: this._keywords})
     .end(function (err, result) {
       if (err) return cb(err);
-      return cb(null, result.body);
+
+      // Hopefully we have a body
+      var body = result.body;
+
+      // Check for errors
+      var err = body.ErrorMessages;
+
+      if (err && err.length > 0) return cb(new Error(err[0].Value));
+
+      return cb(null, body);
     });
 };
 
