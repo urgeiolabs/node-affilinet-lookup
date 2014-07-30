@@ -53,7 +53,13 @@ Affilinet.prototype.done = function (cb) {
       var err = body.ErrorMessages;
       if (err && err.length > 0) return cb(new Error(err[0].Value));
 
-      return cb(null, body);
+      // Check if there's products present
+      if (!body.Products) return cb(null, this._one ? null : []);
+
+      // Format products
+      var formatted = format(body.Products);
+
+      return cb(null, formatted);
     });
 };
 
