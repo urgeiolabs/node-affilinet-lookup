@@ -41,6 +41,18 @@ Affilinet.prototype.price = function (price) {
   return this;
 };
 
+Affilinet.prototype.shop = function (shop) {
+  // Init shops
+  if (this._shops) this._shops = [];
+  // Accept array of shops
+  if (_.isArray(shop)) this._shops = shop;
+  // Accept a single string shop
+  if (_.isString(shop)) this._shops.push(shop);
+
+  return this;
+};
+
+// Page
 Affilinet.prototype.page = function (page) {
   if (!page) return this;
   return this._page = page, this;
@@ -68,6 +80,7 @@ Affilinet.prototype.done = function (cb) {
     .query({MinimumPrice: this._minPrice})
     .query({MaximumPrice: this._maxPrice})
     .query({PageSize: this._one ? 1 : this._limit})
+    .query({ShopIds: this._shops && this._shops.join(',')})
     .end(function (err, result) {
       if (err) return cb(err);
 
