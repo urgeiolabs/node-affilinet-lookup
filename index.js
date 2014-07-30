@@ -31,6 +31,11 @@ Affilinet.prototype.password = Affilinet.prototype.key = function (password) {
   return this._password = password, this;
 };
 
+Affilinet.prototype.one = function (one) {
+  one = ('undefined' === typeof one) ? true : !!one;
+  return this._one = one, this;
+};
+
 // Run query
 Affilinet.prototype.done = function (cb) {
   request
