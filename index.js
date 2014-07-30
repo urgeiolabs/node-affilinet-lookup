@@ -36,6 +36,12 @@ Affilinet.prototype.one = function (one) {
   return this._one = one, this;
 };
 
+Affilinet.prototype.limit = function (limit) {
+  // Disregard falsy limits, they don't make any sense
+  if (!limit) return this;
+  return this._limit = limit, this;
+};
+
 // Run query
 Affilinet.prototype.done = function (cb) {
   request
@@ -54,13 +60,23 @@ Affilinet.prototype.done = function (cb) {
       if (err && err.length > 0) return cb(new Error(err[0].Value));
 
       // Check if there's products present
-      if (!body.Products) return cb(null, this._one ? null : []);
+      if (!body.Products) body.Products = [];
 
       // Format products
       var formatted = format(body.Products);
 
+      // One
+      if (this._one) {
+        formatted = _.first(formatted) || null;
+      }
+
+      // Limit
+      if (this._limit) {
+        formatted = _.first(formatted, this._limit);
+      }
+
       return cb(null, formatted);
-    });
+    }.bind(this));
 };
 
 var format = function (products) {
