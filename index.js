@@ -41,6 +41,11 @@ Affilinet.prototype.price = function (price) {
   return this;
 };
 
+Affilinet.prototype.page = function (page) {
+  if (!page) return this;
+  return this._page = page, this;
+};
+
 // Limit to one result
 Affilinet.prototype.one = function (one) {
   one = ('undefined' === typeof one) ? true : !!one;
