@@ -10,7 +10,7 @@ module.exports = function (opts) {
 };
 
 // Api endpoint
-var endpoint = 'http://api.affili.net/V3/productservice.svc/JSON/SearchProducts';
+var endpoint = 'http://product-api.affili.net/V3/productservice.svc/JSON/SearchProducts';
 
 var Affilinet = function Affilinet (opts) {
   opts = ('string' === typeof opts) ? { keywords: opts } : opts;
