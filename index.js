@@ -164,13 +164,18 @@ var format = function (products) {
 
 // Take care of affilinet byte ordering foolishness
 request.parse['application/json'] = function (res, fn) {
-  res.text = '';
-  res.setEncoding('utf8');
-  res.on('data', function (chunk) { res.text += chunk; });
-  res.on('end', function () {
+  res
+  .on('data', function (chunk) {
+    res.text = !res.text ? chunk : Buffer.concat([res.text, chunk]);
+  })
+  .on('end', function () {
+    var text = res.text;
+
+    // Trim out byte order crap if necessary
+    if (text[0] === 0xEF) text = text.slice(3);
+
     try {
-      res.text = res.text.slice(1);
-      fn(null, JSON.parse(res.text));
+      fn(null, JSON.parse(text.toString()));
     } catch (err) {
       fn(err);
     }
