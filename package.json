@@ -1,6 +1,6 @@
 {
   "name": "affilinet-lookup",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A simple wrapper around the affilinet search products api",
   "main": "index.js",
   "scripts": {
