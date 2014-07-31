@@ -64,6 +64,18 @@ affilinet({keywords: 'test'})
   .done(function (err, result) { ... }) // result === null || typeof result === 'object' 
 ```
 
+Change sorting order:
+
+```javascript
+var affilinet = require('affilinet-lookup');
+
+affilinet({keywords: 'test'})
+  .id('publisher id')
+  .key('publisher password')
+  .sort('-price') // Descending price
+  .done(function (err, result) { ... })
+```
+
 ## Dependencies
 
 * [superagent](http://github.com/visionmedia/superagent)
