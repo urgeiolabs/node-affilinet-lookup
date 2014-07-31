@@ -47,6 +47,10 @@ var opts = nomnom
       return s.split(',');
     }
   })
+  .option('order', {
+    abbr: 'o',
+    help: 'Result sort order',
+  })
   .parse();
 
 affilinet({keywords: opts.keywords})
@@ -56,6 +60,7 @@ affilinet({keywords: opts.keywords})
   .limit(opts.limit)
   .page(opts.page)
   .shop(opts.shops)
+  .sort(opts.order)
   .done(function (err, res) {
     if (err) throw err;
     console.log(JSON.stringify(res));
