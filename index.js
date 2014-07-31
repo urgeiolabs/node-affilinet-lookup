@@ -70,6 +70,48 @@ Affilinet.prototype.limit = function (limit) {
   return this._limit = limit, this;
 };
 
+// Sort
+var sorts = [
+  { name: 'score', affName: 'Score' },
+  { name: 'price', affName: 'Price' },
+  { name: 'name' , affName: 'ProductName' },
+  { name: 'date', affName: 'LastImported' }
+];
+Affilinet.prototype.sort = function (sort) {
+  // Ignore falsy
+  if (!sort) return this;
+
+  // Check for order
+  var asc;
+
+  // -score
+  if (sort[0] === '-') {
+    asc = false;
+    sort = sort.slice(1);
+  // +score
+  } else if (sort[0] === '+') {
+    asc = true;
+    sort = sort.slice(1);
+  // score
+  } else {
+    asc = true;
+  }
+
+  // Lookup sort criteria name
+  var name = _.find(sorts, function (x) {
+    return x.name === sort;
+  });
+
+  // Choke if invalid
+  if (!name) throw new Error('Invalid sorting criteria');
+
+  // Set appropriate settings
+  this._sortOrder = asc ? 'ascending' : 'descending';
+  this._sortBy = name.affName;
+
+  return this;
+};
+
 // Run query
 Affilinet.prototype.done = function (cb) {
   request
@@ -81,6 +123,8 @@ Affilinet.prototype.done = function (cb) {
     .query({MaximumPrice: this._maxPrice})
     .query({PageSize: this._one ? 1 : this._limit})
     .query({ShopIds: this._shops && this._shops.join(',')})
+    .query({SortBy: this._sortBy})
+    .query({SortOrder: this._sortOrder})
     .end(function (err, result) {
       if (err) return cb(err);
 
