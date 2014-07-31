@@ -43,7 +43,7 @@ Affilinet.prototype.price = function (price) {
 
 Affilinet.prototype.shop = function (shop) {
   // Init shops
-  if (this._shops) this._shops = [];
+  if (!this._shops) this._shops = [];
   // Accept array of shops
   if (_.isArray(shop)) this._shops = shop;
   // Accept a single string shop
