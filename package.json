@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:adamvr/node-affilinet-lookup.git"
+    "url": "git@github.com:urgeiolabs/node-affilinet-lookup.git"
   },
   "keywords": [
     "affilinet",
@@ -19,12 +19,12 @@
   "author": "Adam Rudd",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adamvr/node-affilinet-lookup/issues"
+    "url": "https://github.com/urgeiolabs/node-affilinet-lookup/issues"
   },
   "bin": {
     "affilinet-lookup": "./bin.js"
   },
-  "homepage": "https://github.com/adamvr/node-affilinet-lookup",
+  "homepage": "https://github.com/urgeiolabs/node-affilinet-lookup",
   "dependencies": {
     "nomnom": "^1.8.0",
     "superagent": "^0.18.2",
